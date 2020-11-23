@@ -1,3 +1,6 @@
+#pragma GCC optimize("Ofast")
+#pragma GCC target("avx,avx2,fma")
+
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp> //required
 #include <ext/pb_ds/tree_policy.hpp> //required
