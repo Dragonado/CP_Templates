@@ -19,6 +19,8 @@ template <typename T> using ordered_set =  tree<T, null_type, less<T>, rb_tree_t
 #define input(vec,N)   for(int i = 0; i < (N); i++) cin >> vec[i];
 #define debug(x)       cerr << #x << " = " << (x) << endl;
 
+mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
+
 typedef long long int ll;
 
 // start of highly risky #defines

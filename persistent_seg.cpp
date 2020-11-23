@@ -1,20 +1,34 @@
 #include <bits/stdc++.h>
-using namespace std;
+#include <ext/pb_ds/assoc_container.hpp> //required
+#include <ext/pb_ds/tree_policy.hpp> //required
 
-#define MOD (1000000000+7)
-#define pb(x) push_back(x)
-#define mp(x,y) make_pair(x,y)
-#define all(x) x.begin(), x.end()
-#define print(vec,l,r) for(int i = l; i <= r; i++) cout << vec[i] <<" "; cout << endl;
-#define forf(i,a,b) for(int i = (a); i < (b); i++)
-#define forr(i,a,b) for(int i = (a); i > (b); i--)
-#define input(vec,N) for(int i = 0; i < (N); i++) cin >> vec[i];
-#define debug(x) cerr << #x << " = " << (x) << endl;
-#define MAXN 30000
 // template starts
+using namespace __gnu_pbds; //required 
+using namespace std;
+template <typename T> using ordered_set =  tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>; 
+
+// ordered_set <int> s;
+// s.find_by_order(k); returns the (k+1)th smallest element
+// s.order_of_key(k); returns the number of elements in s strictly less than k
+
+#define MOD            (1000000000+7) // change as required
+#define pb(x)          push_back(x)
+#define mp(x,y)        make_pair(x,y)
+#define all(x)         x.begin(), x.end()
+#define print(vec,l,r) for(int i = l; i <= r; i++) cout << vec[i] <<" "; cout << endl;
+#define input(vec,N)   for(int i = 0; i < (N); i++) cin >> vec[i];
+#define debug(x)       cerr << #x << " = " << (x) << endl;
+
+mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
+
 typedef long long int ll;
 
-// template ends here
+// start of highly risky #defines
+
+#define int ll // disable when you want to make code a bit faster
+#define endl '\n' // disable when dealing with interactive problems
+
+// End of highly risky #defines
 
 template <typename T>
 class segtree{
@@ -173,18 +187,18 @@ void solve(){
 		
 		int k = ans;
 				
-		auto f = [&](int R){
-			if(R < 0) return 0;
+		//ll f = [&](int R){
+			//if(R < 0) return 0;
 			
-			int sum = s.query(k+1,N,R);
-			return sum;
-		};
+			//ilt sum = s.query(k+1,N,R);
+			//return sum;
+		//};
 		
-		cout << f(r)-f(l-1) << endl;
+		//cout << f(r)-f(l-1) << endl;
 	}
 }
 
-int main(){
+signed main(){
  	ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
