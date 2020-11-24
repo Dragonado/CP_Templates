@@ -9,8 +9,6 @@ https://atcoder.jp/contests/abc184/tasks/abc184_d
 https://atcoder.jp/contests/abc184/tasks/abc184_e
 https://atcoder.jp/contests/abc184/tasks/abc184_f
 
-3) Friends (Graphs, Kickstart H)
-https://codingcompetitions.withgoogle.com/kickstart/round/000000000019ff49/000000000043aee7
 
 4) Scalar Product Tree (Tree, DP?, Codechef)
 https://www.codechef.com/NOV20A/problems/SCALSUM
