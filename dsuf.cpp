@@ -14,14 +14,17 @@ template <typename T> using ordered_set =  tree<T, null_type, less<T>, rb_tree_t
 // s.find_by_order(k); returns the (k+1)th smallest element
 // s.order_of_key(k); returns the number of elements in s strictly less than k
 
-#define MOD            (1000000000+7) // change as required
-#define pb(x)          push_back(x)
-#define mp(x,y)        make_pair(x,y)
-#define all(x)         x.begin(), x.end()
-#define print(vec,l,r) for(int i = l; i <= r; i++) cout << vec[i] <<" "; cout << endl;
-#define input(vec,N)   for(int i = 0; i < (N); i++) cin >> vec[i];
-#define debug(x)       cerr << #x << " = " << (x) << endl;
-
+#define MOD              (1000000000+7) // change as required
+#define pb(x)            push_back(x)
+#define mp(x,y)          make_pair(x,y)
+#define all(x)           x.begin(), x.end()
+#define print(vec,l,r)   for(int i = l; i <= r; i++) cout << vec[i] <<" "; cout << endl;
+#define input(vec,N)     for(int i = 0; i < (N); i++) cin >> vec[i];
+#define debug(x)         cerr << #x << " = " << (x) << endl;
+#define leftmost_bit(x)  (63-__builtin_clzll(x))
+#define rightmost_bit(x) __builtin_ctzll(x)
+#define set_bits(x)      __builtin_popcountll(x)
+  
 mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 
 typedef long long int ll;
