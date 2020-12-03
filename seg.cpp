@@ -43,29 +43,28 @@ public:
 	struct item{
 		T val;
 	};
-	T sentinel_val;// the out of range value
+	item sentinel;// the out of range value
 	vector<item> arr;//[4*MAXN]; // MAXN = 2e5
 	
 	T N;
 	
 	segtree(const T  sz){
 		N = 1;
-		sentinel_val = 0;
+		sentinel.val = 0;
 		// for sum:sentinal_val = 0, min = 1e17, max = -1e7, XOR = 0, gcd = 1
 
 		
 		while(N < sz) N <<= 1;
 		arr.resize(2*N);
 
-		for(int i = 0; i < 2*N; i++) arr[i].val = sentinel_val;	
+		for(int i = 0; i < 2*N; i++) arr[i] = sentinel;	
 	}
 	
-	T combine(T a, T b){
-		return a+b; // for sum
-		//return min(a,b); // for min
-		//return max(a,b); // for max
-		//return __gcd(a,b); // for gcd
-		// return a^b; // for XOR
+	item combine(item a, item b){
+		item res;
+		res.val = a.val + b.val;
+		
+		return res;
 	}
 	
 	void build(vector<T> &vec,int index, int l, int r){
@@ -80,7 +79,7 @@ public:
 		build(vec,2*index,l,m);
 		build(vec,2*index+1,m+1,r);
 		
-		arr[index].val = combine(arr[2*index].val,arr[2*index+1].val);
+		arr[index] = combine(arr[2*index],arr[2*index+1]);
 	}
 	void build(vector<T> &vec){
 		build(vec,1,0,N-1);
@@ -100,7 +99,7 @@ public:
 		update(2*index,l,m,upd_index,upd_val);
 		update(2*index+1,m+1,r,upd_index,upd_val);
 		
-		arr[index].val = combine(arr[2*index].val,arr[2*index+1].val);
+		arr[index] = combine(arr[2*index],arr[2*index+1]);
 	}
 	
 	// 0 based indexing for upd_index
@@ -108,22 +107,23 @@ public:
 		update(1,0,N-1,upd_index,upd_val);
 	}
 	
-	T query(int index, int l, int r, int lx, int rx){
-		if(l > rx || lx > r) return sentinel_val;
+	item query(int index, int l, int r, int lx, int rx){
+		if(l > rx || lx > r) return sentinel;
 		
 		if(lx <= l && r <= rx){
-			return arr[index].val;
+			return arr[index];
 		}
 		int m = (l+r)/2;
 		
-		return combine(query(2*index,l,m,lx,rx),query(2*index+1,m+1,r,lx,rx));
+		return combine(query(2*index,l,m,lx,rx),
+		               query(2*index+1,m+1,r,lx,rx));
 	}
 	
 	// assuming lx and rx are 0 based
 	// query returns the answer in the range [lx,rx]
 	// including lx and rx
 	T query(int lx, int rx){
-		return query(1,0,N-1,lx,rx);
+		return query(1,0,N-1,lx,rx).val;
 	}
 };
 
