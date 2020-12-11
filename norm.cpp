@@ -2,13 +2,12 @@
 #pragma GCC target("avx,avx2,fma")
 
 #include <bits/stdc++.h>
-#include <ext/pb_ds/assoc_container.hpp> //required
-#include <ext/pb_ds/tree_policy.hpp> //required
+//#include <ext/pb_ds/assoc_container.hpp> //required
+//#include <ext/pb_ds/tree_policy.hpp> //required
 
-// template starts
-using namespace __gnu_pbds; //required 
+//using namespace __gnu_pbds; //required 
 using namespace std;
-template <typename T> using ordered_set =  tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>; 
+//template <typename T> using ordered_set =  tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>; 
 
 // ordered_set <int> s;
 // s.find_by_order(k); returns the (k+1)th smallest element
@@ -29,14 +28,11 @@ mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 
 typedef long long int ll;
 
-// start of highly risky #defines
-
+// highly risky #defines
 #define int ll // disable when you want to make code a bit faster
 #define endl '\n' // disable when dealing with interactive problems
 
-// End of highly risky #defines
 
-// template ends here
 
 void solve(){
 	// code starts from here
@@ -54,13 +50,13 @@ signed main(){
     cin.tie(NULL);
 	//startTime = clock();
 	
-	int T;
+	int T = 1;
 	cin >> T;
-	//T = 1;
+
 	while(T--){
 		solve();
 	}
 	
-	//cout << getCurrentTime() << endl;
+	//cerr << getCurrentTime() << endl;
 	return 0;
 }
