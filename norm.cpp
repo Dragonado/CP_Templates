@@ -21,8 +21,12 @@ using namespace std;
 #define input(vec,N)     for(int i = 0; i < (N); i++) cin >> vec[i];
 #define debug(x)         cerr << #x << " = " << (x) << endl;
 #define leftmost_bit(x)  (63-__builtin_clzll(x))
-#define rightmost_bit(x) __builtin_ctzll(x)
-#define set_bits(x)      __builtin_popcountll(x)
+#define rightmost_bit(x) __builtin_ctzll(x) // count trailing zeros
+#define set_bits(x)      __builtin_popcountll(x) 
+#define pow2(i)          (1LL << (i))
+#define is_on(x, i)      ((x) & pow2(i)) // state of the ith bit in x
+#define set_on(x, i)     ((x) | pow2(i)) // returns integer x with ith bit on
+#define set_off(x, i)    ((x) & ~pow2(i)) // returns integer x with ith bit off
   
 mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 
