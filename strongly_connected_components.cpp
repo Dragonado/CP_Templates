@@ -72,7 +72,7 @@ void dfs_label(int u){ // Label each SCC
     visited[u] = true;
     label[u] = cntr;
     sz[label[u]]++;
-    SCC[label[u]].pb(u-1);
+    SCC[label[u]].pb(u);
     
     for(auto v : adj[u])
         if(!visited[v])
