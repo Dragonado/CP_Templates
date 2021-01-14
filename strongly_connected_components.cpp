@@ -41,8 +41,8 @@ typedef long long int ll;
 #define endl '\n' // disable when dealing with interactive problems
 
 
-const int N = 5e5 + 5;
- 
+const int N = 2e5 + 5;
+
 vector<int> adj[N], adjr[N]; // make it set if graph is not simple
 
 vector<int> CT[N]; // Component Tree (technically a DAG)
@@ -50,7 +50,7 @@ int sz[N], label[N];
 
 vector<int> SCC[N]; // contains vertices of the same SCC
 
-pair<int,int> fin_order[N];
+int fin_order_inc[N]; // contains vertices in sorted order of finishing time
 
 bool visited[N];
 
@@ -64,8 +64,7 @@ void dfs_scc(int u){ // finding exit time in Gr
         dfs_scc(v);
     }
 
-    fin_order[u].first = ++cntr;
-    fin_order[u].second = u;
+    fin_order_inc[++cntr] = u;
 }
  
 void dfs_label(int u){ // Label each SCC
@@ -100,7 +99,7 @@ signed main(){
 
     while(m--){
         cin>>u>>v; // 1 based indexing
-        // u++;v++; uncomment if input is 0 based indexing
+        // u++;v++;// uncomment if input is 0 based indexing
         if(u == v) continue;
         
         adj[u].pb(v);
@@ -117,14 +116,16 @@ signed main(){
         if(visited[i]) continue;
         dfs_scc(i);
     }
-    sort(fin_order+1, fin_order+n+1, cmp);
 
     ///////////////////////////////////////////////////////////
     for(int i = 1; i <= n; i++) visited[i] = 0;
  
     cntr = 0;
-    for(int i = 1; i <= n; i++){
-        int u = fin_order[i].second;
+
+    // last elemnt of find_order_inc is source in Gr and sink in G
+
+    for(int i = n; i >= 1; i--){
+        int u = fin_order_inc[i];
         if(visited[u]) continue;
 
         cntr++;
