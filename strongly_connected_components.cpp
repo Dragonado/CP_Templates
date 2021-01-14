@@ -1,6 +1,7 @@
 // taken from: https://pastebin.com/DLQ9RWwH
 //https://www.youtube.com/watch?v=zcyxbcrPvqk&t=4778s Sidhant Bansal Orz
-//https://judge.yosupo.jp/submission/35750 myself
+//https://judge.yosupo.jp/submission/35801 my soln
+
 #include <bits/stdc++.h>
 
 #pragma GCC optimize("Ofast")
