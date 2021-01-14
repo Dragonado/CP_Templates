@@ -82,10 +82,9 @@ void dfs_label(int u){ // Label each SCC
 void dfs_CT(int u){ // creating Component Tree
     visited[u] = true;
     for(auto v : adj[u]){
-        if(visited[v]) continue;
+        if(!visited[v]) dfs_CT(v);
 
         if(label[u] != label[v]) CT[label[u]].pb(label[v]);
-        dfs_CT(v);
     }
 }
 
@@ -101,7 +100,7 @@ signed main(){
 
     while(m--){
         cin>>u>>v; // 1 based indexing
-        u++;v++;
+        // u++;v++; uncomment if input is 0 based indexing
         if(u == v) continue;
         
         adj[u].pb(v);
