@@ -68,19 +68,15 @@ public:
         if(head_k1 == head_k2) return;
         
         distinct_comp--;
-        
-        if(dist[head_k1] > dist[head_k2]){
-			head[head_k2] = head_k1;
+
+		// I want to connect k2 to k1, k1 should be better
+		if(dist[head_k2] > dist[head_k1]){
+			swap(head_k1, head_k2);
 		}
         
-        else if(dist[head_k1] < dist[head_k2]){
-			head[head_k1] = head_k2;
-		}
-       
-        else{
-            head[head_k1] = head_k2;
-            dist[head_k2]++;
-        }
+		if(dist[head_k1] == dist[head_k2]) dist[k1]++;
+		
+		head[head_k2] = head_k1;
     }
     
     bool is_connected(int k1, int k2){
@@ -91,7 +87,20 @@ public:
 
 void solve(){
 	// code starts from here
-	
+	int N, Q;
+	cin >> N >> Q;
+
+	DSUF dsu(N);
+
+	while(Q--){
+		int t, x,y;
+		cin >> t >> x >> y; 
+		if(t == 0){
+			dsu.merge(x,y);
+		}else{
+			cout << dsu.is_connected(x,y) << endl;
+		}
+	}
 }
 
 
@@ -105,9 +114,9 @@ signed main(){
     cin.tie(NULL);
 	//startTime = clock();
 	
-	int T;
-	cin >> T;
-	//T = 1;
+	int T = 1;
+	// cin >> T;
+
 	while(T--){
 		solve();
 	}
