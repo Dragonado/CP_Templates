@@ -38,6 +38,7 @@ typedef long long int ll;
 
 
 // template ~stolen~ inspired from Zeus_orz @CF
+// here int should be long long int but I have #define int ll so its fine
 class basisxor{
     public:
         int bs[60];
