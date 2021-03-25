@@ -86,6 +86,11 @@ int cnt(int t, int K, int index = 0, int bit = num_of_bits-1){
     return ans;
 }
 
+// do this if there are mutlitests
+void clear(){
+    for(int i = 0; i < 2*MAXN; i++) tree[i] = 0;
+}
+
 // algo to calculate number of pairs in 2 arrays such that a[i]^b[j] >= K where ^ is XOR
 // using binary trie data structure
 void solve(){
