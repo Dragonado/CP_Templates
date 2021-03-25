@@ -40,6 +40,7 @@ typedef long long int ll;
 const int MAXN = (1<< num_of_bits);
 vector<int> tree(2*MAXN, 0);
 
+// add an integer to the multiset
 void insert(int t, int index = 0, int bit = num_of_bits-1){
     tree[index]++;
     
@@ -53,6 +54,8 @@ void insert(int t, int index = 0, int bit = num_of_bits-1){
     }
 }
 
+
+// cnt(t, K) returns the number of b^t >= K where b is a number inserted by insert. Repeats allowed and counted
 int cnt(int t, int K, int index = 0, int bit = num_of_bits-1){
     if(bit < 0) return tree[index]; // XOR is equal to K
 
