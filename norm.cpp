@@ -13,7 +13,6 @@ using namespace std;
 // s.find_by_order(k); returns the (k+1)th smallest element
 // s.order_of_key(k); returns the number of elements in s strictly less than k
 
-#define MOD              (1000000000+7) // change as required
 #define pb(x)            push_back(x)
 #define mp(x,y)          make_pair(x,y)
 #define all(x)           x.begin(), x.end()
@@ -31,12 +30,17 @@ using namespace std;
 mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 
 typedef long long int ll;
+typedef long double ld;
+
+const int MOD = 1e9+7; // 998244353;
+const int MX = 2e5+5;
+const ll INF = 1e18; // not too close to LLONG_MAX
+const ld PI = acos((ld)-1);
+const int dx[4] = {1,0,-1,0}, dy[4] = {0,1,0,-1}; // for every grid problem!!
 
 // highly risky #defines
 #define int ll // disable when you want to make code a bit faster
 #define endl '\n' // disable when dealing with interactive problems
-
-
 
 void solve(){
 	// code starts from here
