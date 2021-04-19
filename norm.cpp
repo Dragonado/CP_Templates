@@ -28,7 +28,7 @@ using namespace std;
 #define set_off(x, i)    ((x) & ~pow2(i)) // returns integer x with ith bit off
   
 mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
-// auto dist = uniform_int_distribution<int>(l, r)(rng)];
+// auto dist = uniform_int_distribution<int>(l, r);
 // use int a = dist(rng) to get a random number between [l,r] inclusive
 
 typedef long long int ll;
