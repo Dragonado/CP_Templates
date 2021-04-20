@@ -36,172 +36,49 @@ typedef long long int ll;
 
 // End of highly risky #defines
 
-template <typename T>
-class segtree{
+const int N = 3e5 + 10;
+const int MX = 1e9 + 10;
+const int LOGN = 32;
+int L[N * LOGN], R[N * LOGN], ST[N * LOGN], blen, root[N];
+
+class path_copying_segtree {
 public:
+    // sparse persistent-segtree. range sum, initially 0
+    path_copying_segtree(){
+        blen = 0;
+    }
 
-	struct item{
-		vector<pair<int,int>> val;
-	};
-	
-	T sentinel_val;// the out of range value
-	vector<item> arr;//[4*MAXN]; // MAXN = 2e5
-	
-	T N;
-	
-	segtree(const T  sz){
-		N = 1;
-		sentinel_val = 0;
-		// for sum:sentinal_val = 0, min = 1e17, max = -1e7, XOR = 0, gcd = 1
+    int update(int pos, int add, int l, int r, int id) {
+        if (l > pos || r <= pos) return id;
+        int ID = ++blen, m = l + (r - l) / 2;
+        if (l == r - 1) return (ST[ID] = ST[id] + add, ID);
+        L[ID] = update(pos, add, l, m, L[id]);
+        R[ID] = update(pos, add, m, r, R[id]);
+        return (ST[ID] = ST[L[ID]] + ST[R[ID]], ID);
+    }
 
-		
-		while(N < sz) N <<= 1;
-		arr.resize(2*N);
+    void update(int A[], int n) {
+        root[0] = ++blen;
+        for (int i = 1; i <= n; i++) root[i] = update(A[i], 1, 1, MX, root[i - 1]);
+    }
 
-		for(int i = 0; i < 2*N; i++) arr[i].val.pb(mp(0,sentinel_val));	
-	}
-	
-	T combine(T a, T b){
-		return a+b; // for sum
-	}
-	// 0 based indexing for upd_index 
-	void update(int index, int l, int r, int upd_index,T upd_val, int _time){
-		if(l > upd_index || upd_index > r) return;
-		
-		if(l == r){
-			arr[index].val.pb(mp(_time,upd_val));
-			return;
-		}
-		
-		int m = (l+r)/2;
-		
-		update(2*index,l,m,upd_index,upd_val, _time);
-		update(2*index+1,m+1,r,upd_index,upd_val, _time);
-		
-		int s = arr[2*index].val.back().second + arr[2*index + 1].val.back().second;
-		
-		arr[index].val.pb(mp(_time,s));
-	}
-	
-	// 0 based indexing for upd_index
-	void update(int upd_index, T upd_val, int _time){
-		update(1,0,N-1,upd_index,upd_val, _time);
-	}
-	
-	int get_ans(int _time, vector<pair<int,int>> &v){
-		int low = 0, high = (int)v.size()-1;
-		int ans = -1, mid;
-		
-		while(low <= high){
-			mid = (low+high)/2;
-			if(v[mid].first <= _time){
-				ans = v[mid].second;
-				low = mid+1;
-			}
-			else high = mid-1;
-		}
-		
-		assert(ans != -1);
-		return ans;
-	}
-	
-	T query(int index, int l, int r, int lx, int rx, int _time){
-		if(l > rx || lx > r) return sentinel_val;
-		
-		if(lx <= l && r <= rx){
-			return get_ans(_time,arr[index].val);
-		}
-		int m = (l+r)/2;
-		
-		return combine(query(2*index,l,m,lx,rx,_time),
-						query(2*index+1,m+1,r,lx,rx,_time));
-	}
-	
-	// assuming lx and rx are 0 based
-	// query returns the answer in the range [lx,rx]
-	// including lx and rx
-	T query(int lx, int rx, int _time){
-		return query(1,0,N-1,lx,rx, _time);
-	}
-};
+    int query(int qL, int qR, int l, int r, int x) {
+        if (!x || r <= qL || qR <= l) return 0;
+        if (l >= qL && r <= qR) return ST[x];
+        int m = l + (r - l) / 2;
+        return query(qL, qR, l, m, L[x]) + query(qL, qR, m, r, R[x]);
+    }
 
+    int query(int l, int r, int k) {
+        return query(k + 1, MX, 1, MX, root[r]) -
+            query(k + 1, MX, 1, MX, root[l - 1]);
+    }
+} ; // namespace path_copying_segree
 
 
 void solve(){
-	// code starts from here
-	int N;
-	cin >> N;
-	vector<pair<int,int>> v(N);
-	
-	#define endl '\n'
-	
-	vector<int> freq(N+1, 0), vec(N,-1);
-	for(int i = 0; i < N; i++){
-		cin >> v[i].first;
-		v[i].second = i;
-	}
-	
-	sort(all(v));
-	int cur = 0;
-	vec[v[0].second] = cur;
-	
-	map<int,int> mp;
-	
-	for(int i = 1; i < N; i++){
-		if(v[i].first != v[i-1].first) cur++;
-		mp[v[i].first] = cur;
-		
-		vec[v[i].second] = cur;
-	}
-	
-	segtree<int> s(N);
-	
-	for(int i = 0; i < N; i++){
-		freq[vec[i]]++;
-		s.update(vec[i],freq[vec[i]],i+1);
-	}
-	
-	int Q;
-	cin >> Q;
-	while(Q--){
-		int l,r,K;
-		cin >> l >> r >> K;
-		
-		if(K >= v.back().first){
-			cout << 0 << endl;
-			continue;
-		}
-		if(K < v[0].first){
-			cout << r-l+1 << endl;
-			continue;
-		}
-		
-		int low = 0, high = N-1;
-		int ans = -1,mid;
-		
-		while(low <= high){
-			mid = (low+high)/2;
-			
-			if(v[mid].first <= K){
-				low = mid+1;
-				ans = mp[v[mid].first];
-			}
-			else high = mid-1;
-		}
-		
-		assert(ans != -1);
-		
-		int k = ans;
-				
-		//ll f = [&](int R){
-			//if(R < 0) return 0;
-			
-			//ilt sum = s.query(k+1,N,R);
-			//return sum;
-		//};
-		
-		//cout << f(r)-f(l-1) << endl;
-	}
+	// usage: https://pastebin.com/WM816gtu
+	// problem: https://www.spoj.com/problems/KQUERY/
 }
 
 signed main(){
