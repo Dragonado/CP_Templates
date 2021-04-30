@@ -38,11 +38,15 @@ const int MOD = 1e9+7; // 998244353;
 const int MX = 2e5+5;
 const ll INF = 1e18; // not too close to LLONG_MAX
 const ld PI = acos((ld)-1);
+const ld EPS = 1e-8;
 const int dx[4] = {1,0,-1,0}, dy[4] = {0,1,0,-1}; // for every grid problem!!
 
 // highly risky #defines
 #define int ll // disable when you want to make code a bit faster
 #define endl '\n' // disable when dealing with interactive problems
+
+typedef vector<int> vi;
+typedef pair<int, int> pii;
 
 void solve(){
 	// code starts from here
