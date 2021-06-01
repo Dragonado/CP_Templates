@@ -18,7 +18,7 @@ using namespace std;
 #define all(x)           x.begin(), x.end()
 #define print(vec,l,r)   for(int i = l; i <= r; i++) cout << vec[i] <<" "; cout << endl;
 #define input(vec,N)     for(int i = 0; i < (N); i++) cin >> vec[i];
-#define debug(x)         cerr << #x << " = " << (x) << endl;
+#define debug(...) logger(#__VA_ARGS__, __VA_ARGS__)
 #define leftmost_bit(x)  (63-__builtin_clzll(x))
 #define rightmost_bit(x) __builtin_ctzll(x) // count trailing zeros
 #define set_bits(x)      __builtin_popcountll(x) 
@@ -30,6 +30,12 @@ using namespace std;
 mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 // auto dist = uniform_int_distribution<int>(l, r);
 // use int a = dist(rng) to get a random number between [l,r] inclusive
+template<typename ...Args>
+void logger(string vars, Args&&... values) {
+    cout << vars << " = ";
+    string delim = "";
+    (..., (cout << delim << values, delim = ", "));
+}
 
 typedef long long int ll;
 typedef long double ld;
@@ -47,6 +53,7 @@ const int dx[4] = {1,0,-1,0}, dy[4] = {0,1,0,-1}; // for every grid problem!!
 
 typedef vector<int> vi;
 typedef pair<int, int> pii;
+
 
 void solve(){
 	// code starts from here
