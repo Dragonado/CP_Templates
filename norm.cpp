@@ -32,9 +32,10 @@ mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 // use int a = dist(rng) to get a random number between [l,r] inclusive
 template<typename ...Args>
 void logger(string vars, Args&&... values) {
-    cout << vars << " = ";
+    cerr << vars << " = ";
     string delim = "";
-    (..., (cout << delim << values, delim = ", "));
+    (..., (cerr << delim << values, delim = ", "));
+	cerr << endl;
 }
 
 typedef long long int ll;
