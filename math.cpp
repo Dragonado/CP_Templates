@@ -45,14 +45,16 @@ ll fact(ll n, ll p){
 	}
 	return ans;
 }
-ll power(ll x, ll n, ll p){
-	ll res = 1;
-	if(n == 0) return 1;
-	if(n == 1) return x%p;
-	if(n%2 == 1) res = x%p;
-
-	ll temp = power(x,n/2,p);
-	return res*((temp*temp)%p)%p;
+ll power(ll a, ll b, ll m){
+    a %= m;
+    ll res = 1;
+    while (b > 0) {
+        if (b & 1)
+            res = res * a % m;
+        a = a * a % m;
+        b >>= 1;
+    }
+    return res;
 }
 ll inv(ll a, ll p){
 	return power(a,p-2,p);
