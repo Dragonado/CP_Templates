@@ -13,7 +13,7 @@ using namespace std;
 // s.find_by_order(k); returns the (k+1)th smallest element
 // s.order_of_key(k); returns the number of elements in s strictly less than k
 
-#define pb(x)            push_back(x)
+#define pb               push_back
 #define mp(x,y)          make_pair(x,y)
 #define all(x)           x.begin(), x.end()
 #define print(vec,l,r)   for(int i = l; i <= r; i++) cout << vec[i] <<" "; cout << endl;
