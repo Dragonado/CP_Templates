@@ -13,13 +13,12 @@ using namespace std;
 // s.find_by_order(k); returns the (k+1)th smallest element
 // s.order_of_key(k); returns the number of elements in s strictly less than k
 
-#define MOD              (1000000000+7) // change as required
-#define pb(x)            push_back(x)
+#define pb               push_back
 #define mp(x,y)          make_pair(x,y)
 #define all(x)           x.begin(), x.end()
 #define print(vec,l,r)   for(int i = l; i <= r; i++) cout << vec[i] <<" "; cout << endl;
 #define input(vec,N)     for(int i = 0; i < (N); i++) cin >> vec[i];
-#define debug(x)         cerr << #x << " = " << (x) << endl;
+#define debug(...) logger(#__VA_ARGS__, __VA_ARGS__)
 #define leftmost_bit(x)  (63-__builtin_clzll(x))
 #define rightmost_bit(x) __builtin_ctzll(x) // count trailing zeros
 #define set_bits(x)      __builtin_popcountll(x) 
@@ -29,14 +28,33 @@ using namespace std;
 #define set_off(x, i)    ((x) & ~pow2(i)) // returns integer x with ith bit off
   
 mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
+// auto dist = uniform_int_distribution<int>(l, r);
+// use int a = dist(rng) to get a random number between [l,r] inclusive
+template<typename ...Args>
+void logger(string vars, Args&&... values) {
+    cerr << vars << " = ";
+    string delim = "";
+    (..., (cerr << delim << values, delim = ", "));
+	cerr << endl;
+}
 
 typedef long long int ll;
+typedef long double ld;
+
+const int MOD = 1e9+7; // 998244353;
+const int MX = 2e5+5;
+const ll INF = 1e18; // not too close to LLONG_MAX
+const ld PI = acos((ld)-1);
+const ld EPS = 1e-8;
+const int dx[4] = {1,0,-1,0}, dy[4] = {0,1,0,-1}; // for every grid problem!!
 
 // highly risky #defines
 #define int ll // disable when you want to make code a bit faster
 #define endl '\n' // disable when dealing with interactive problems
 
-// taken from: https://cp-algorithms.com/data_structures/fenwick.html
+typedef vector<int> vi;
+typedef pair<int, int> pii;
+
 struct FenwickTreeOneBasedIndexing {
     vector<int> bit;  // binary indexed tree
     int n;
@@ -52,20 +70,22 @@ struct FenwickTreeOneBasedIndexing {
             add(i, a[i]);
     }
 
-    int sum(int idx) {
+
+    void add(int idx, int val) {
+    for (++idx; idx < n; idx += idx & -idx)
+        bit[idx] += val;
+    }
+
+    void range_add(int l, int r, int val) {
+        add(l, val);
+        add(r + 1, -val);
+    }
+
+    int point_query(int idx) {
         int ret = 0;
         for (++idx; idx > 0; idx -= idx & -idx)
             ret += bit[idx];
         return ret;
-    }
-
-    int sum(int l, int r) {
-        return sum(r) - sum(l - 1);
-    }
-
-    void add(int idx, int delta) {
-        for (++idx; idx < n; idx += idx & -idx)
-            bit[idx] += delta;
     }
 };
 
