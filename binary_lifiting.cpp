@@ -107,6 +107,7 @@ void solve(){
 	cin >> n;
 
 	adj.clear();
+	adj.resize(n);
 	for(int i = 0; i < n-1; i++){
 		int u, v;
 		cin >> u >> v;
