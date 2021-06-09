@@ -163,7 +163,7 @@ vector<vector<pii>> getMMST(vector<Point> a){
 }
 
 //https://www.programmersought.com/article/6396113136/
-// NOT TESTED. USE AT YOUR OWN RISK
+// TESTED ON THIS PROBLEM: https://csacademy.com/contest/ieeextreme-practice/task/parkour
 
 int main() {
     ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
