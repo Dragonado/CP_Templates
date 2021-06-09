@@ -103,7 +103,7 @@ vector<vector<pii>> Kruskal(vector<edge>& e, int n) {
         return k == bcj[k]?k:bcj[k] = gr(bcj[k]);
     };
 
-    vector<vector<pii>> adj;
+    vector<vector<pii>> adj(n);
 
     ll ans = 0;
 	int num = 0;
@@ -120,7 +120,7 @@ vector<vector<pii>> Kruskal(vector<edge>& e, int n) {
         }
         if (num == n - 1) break;
     }
-    assert(num == -1);
+    assert(num == n-1);
 
     return adj;
 }
