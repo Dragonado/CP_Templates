@@ -2,162 +2,128 @@
 #pragma GCC target("avx,avx2,fma")
 
 #include <bits/stdc++.h>
-#include <ext/pb_ds/assoc_container.hpp> //required
-#include <ext/pb_ds/tree_policy.hpp> //required
+//#include <ext/pb_ds/assoc_container.hpp> //required
+//#include <ext/pb_ds/tree_policy.hpp> //required
 
-// template starts
-using namespace __gnu_pbds; //required 
+//using namespace __gnu_pbds; //required 
 using namespace std;
-template <typename T> using ordered_set =  tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>; 
+//template <typename T> using ordered_set =  tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>; 
 
 // ordered_set <int> s;
 // s.find_by_order(k); returns the (k+1)th smallest element
 // s.order_of_key(k); returns the number of elements in s strictly less than k
 
-#define MOD              (1000000000+7) // change as required
-#define pb(x)            push_back(x)
+#define pb               push_back
 #define mp(x,y)          make_pair(x,y)
 #define all(x)           x.begin(), x.end()
 #define print(vec,l,r)   for(int i = l; i <= r; i++) cout << vec[i] <<" "; cout << endl;
 #define input(vec,N)     for(int i = 0; i < (N); i++) cin >> vec[i];
-#define debug(x)         cerr << #x << " = " << (x) << endl;
+#define debug(...) logger(#__VA_ARGS__, __VA_ARGS__)
 #define leftmost_bit(x)  (63-__builtin_clzll(x))
-#define rightmost_bit(x) __builtin_ctzll(x)
-#define set_bits(x)      __builtin_popcountll(x)
+#define rightmost_bit(x) __builtin_ctzll(x) // count trailing zeros
+#define set_bits(x)      __builtin_popcountll(x) 
+#define pow2(i)          (1LL << (i))
+#define is_on(x, i)      ((x) & pow2(i)) // state of the ith bit in x
+#define set_on(x, i)     ((x) | pow2(i)) // returns integer x with ith bit on
+#define set_off(x, i)    ((x) & ~pow2(i)) // returns integer x with ith bit off
   
 mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
+// auto dist = uniform_int_distribution<int>(l, r);
+// use int a = dist(rng) to get a random number between [l,r] inclusive
+template<typename ...Args>
+void logger(string vars, Args&&... values) {
+    cerr << vars << " = ";
+    string delim = "";
+    (..., (cerr << delim << values, delim = ", "));
+	cerr << endl;
+}
 
 typedef long long int ll;
+typedef long double ld;
 
-// start of highly risky #defines
+const int MOD = 1e9+7; // 998244353;
 
+const ll INF = 1e18; // not too close to LLONG_MAX
+const ld PI = acos((ld)-1);
+const ld EPS = 1e-8;
+const int dx[4] = {1,0,-1,0}, dy[4] = {0,1,0,-1}; // for every grid problem!!
+
+// highly risky #defines
 #define int ll // disable when you want to make code a bit faster
 #define endl '\n' // disable when dealing with interactive problems
 
-// End of highly risky #defines
+typedef vector<int> vi;
+typedef pair<int, int> pii;
 
+const int MAXN = 1e5+5;
+int n, l; // = 1 + log2(MAXN);
+vector<vector<int>> adj;
 
-int N, M; // no of vertices and no of edges
-int l;
-vector<vector<int>> adj,lift;
-vector<int> tin,tout;
-int T_of_tin= 0;
+int timer;
+vector<int> tin, tout;
+vector<vector<int>> up;
 
-void resizeAll(){
-	adj.clear();
-	tin.clear();
-	tout.clear();
+void dfs(int v, int p){
+    tin[v] = ++timer;
+    up[v][0] = p;
+    for (int i = 1; i <= l; ++i)
+        up[v][i] = up[up[v][i-1]][i-1];
 
-	adj.resize(N);
-	tin.resize(N);
-	tout.resize(N);
-	lift.assign(N, vector<int>(l + 1));
-}
+    for (int u : adj[v]) {
+        if (u != p)
+            dfs(u, v);
+    }
 
-void input_graph(){
-	for(int i = 0; i < M; i++){
-		int t1,t2;
-		cin >> t1 >> t2;
-		//t1--;t2--; // assuming the input is 1 based!!
-		
-		adj[t1].pb(t2);
-		adj[t2].pb(t1);
-	}
-}
-
-void dfs(int root,int parent){
-	
-	tin[root] = T_of_tin++;
-	
-	lift[root][0] = parent;
-	for(int i = 1; i <= l; i++){
-		lift[root][i] = lift[lift[root][i-1]][i-1];
-	}
-	
-	for(int i = 0; i < (int)adj[root].size(); i++){
-		int child = adj[root][i];
-		if(child == parent)continue;
-		
-		dfs(child,root);
-	}	
-	tout[root] = T_of_tin++;
+    tout[v] = ++timer;
 }
 
 bool is_ancestor(int u, int v){
-	return tin[u] <= tin[v] && tout[v] <= tout[u];
+    return tin[u] <= tin[v] && tout[u] >= tout[v];
 }
 
 int lca(int u, int v){
-	if(is_ancestor(u,v)) return u;
-	if(is_ancestor(v,u)) return v;
-	
-	for(int i = l; i >= 0; i--){
-		//debug(u);
-		//debug(v);
-		//debug(is_ancestor(u,v));
-		//cerr << endl;
-		if(!is_ancestor(lift[u][i],v)) u = lift[u][i];
-	}
-	//debug(u);
-	//debug(lift[u][0]);
-	return lift[u][0];
+    if (is_ancestor(u, v))
+        return u;
+    if (is_ancestor(v, u))
+        return v;
+    for (int i = l; i >= 0; --i) {
+        if (!is_ancestor(up[u][i], v))
+            u = up[u][i];
+    }
+    return up[u][0];
 }
 
-int distance(int u, int v){
-	int node = lca(u,v);
-	
-	
-	int d1 = 0, d2 = 0;
-	for(int i = l; i >= 0; i--){
-		//debug(i);
-		//debug(lift[u][i]);
-		//debug(is_ancestor(lift[u][i],node));
-		
-		//cerr << endl;
-		//debug(lift[v][i]);
-		//debug(is_ancestor(lift[v][i],node));
-		//cerr << endl;
-		if(!is_ancestor(lift[u][i],node)){
-			d1 += 1<<i;
-			u = lift[u][i];
-		}
-		if(!is_ancestor(lift[v][i],node)){
-			d2 += 1<<i;
-			v = lift[v][i];
-		}
-	}
-	return d1+d2+2-(node == u)-(node == v);
+void preprocess(int root) {
+    tin.resize(n);
+    tout.resize(n);
+    timer = 0;
+    l = ceil(log2(n));
+    up.assign(n, vector<int>(l + 1));
+    dfs(root, root);
 }
 
-// IMPORTANT: Everything here is 1 based index!!!!
 void solve(){
 	// code starts from here
-	srand(time(0));
-	cin >> N;
-	
-	l = ceil(log2(N));
-	M = N-1; // by default tree
-	//cin >> M; //comment if tree
-	N++;
-	resizeAll();
-	input_graph();
-	
-	dfs(1,0);
-	tin[0] = 0;
-	tout[0] = INT_MAX;
+	cin >> n;
 
-	// thing to remember:
-	// Make sure everything is zero based indexing
-	// Make sure to check each component of the graph
-	// Memory overflow. Try making int to int
+	adj.clear();
+	for(int i = 0; i < n-1; i++){
+		int u, v;
+		cin >> u >> v;
+		u--;v--; // assuming 1 based indexing
+		adj[u].pb(v);
+		adj[v].pb(u);
+	}
+
+	preprocess(0); // usually 0 is root
 }
 
 signed main(){
  	ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-	int T;
-	T = 1;
+	int T = 1;
+	cin >> T;
 	while(T--){
 		solve();
 	}
