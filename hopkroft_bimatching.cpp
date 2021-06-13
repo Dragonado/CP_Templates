@@ -139,13 +139,15 @@ struct Hopcroft_Karp
  
 void solve(){
 	// code starts from here
-	int N, M;
-    cin >> N >> M;
+	int N;
+    cin >> N;
 
-    Hopcroft_Karp flow(max(N+1, M+1));
-    // use 1 based indexing.
+    // O(M*sqrt(N)) where M = number of edges, N = number of vertices on both sides
+    Hopcroft_Karp flow(N+1);
+    // use 1 based indexing, it is assumed that both sides have N vertices.
     // check https://www.codechef.com/viewsolution/47791588
     // and https://p.ip.fi/igSb for usage
+
 }
 
 
