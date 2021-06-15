@@ -18,7 +18,6 @@ using namespace std;
 #define all(x)           x.begin(), x.end()
 #define print(vec,l,r)   for(int i = l; i <= r; i++) cout << vec[i] <<" "; cout << endl;
 #define input(vec,N)     for(int i = 0; i < (N); i++) cin >> vec[i];
-#define debug(...) logger(#__VA_ARGS__, __VA_ARGS__)
 #define leftmost_bit(x)  (63-__builtin_clzll(x))
 #define rightmost_bit(x) __builtin_ctzll(x) // count trailing zeros
 #define set_bits(x)      __builtin_popcountll(x) 
@@ -26,6 +25,12 @@ using namespace std;
 #define is_on(x, i)      ((x) & pow2(i)) // state of the ith bit in x
 #define set_on(x, i)     ((x) | pow2(i)) // returns integer x with ith bit on
 #define set_off(x, i)    ((x) & ~pow2(i)) // returns integer x with ith bit off
+
+#ifdef LOCAL_DEBUG
+	#define debug(...) logger(#__VA_ARGS__, __VA_ARGS__)
+#else
+	#define debug(...) ;
+#endif
   
 mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 // auto dist = uniform_int_distribution<int>(l, r);
@@ -72,7 +77,7 @@ signed main(){
     cin.tie(NULL);
 	//startTime = clock();
 	// mt19937_64 rnd(time(NULL));
-	
+
 	int T = 1;
 	cin >> T;
 
