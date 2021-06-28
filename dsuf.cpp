@@ -36,11 +36,10 @@ typedef long long int ll;
 
 // End of highly risky #defines
 
-
 class DSUF{
 public:
-	vector<int> dist;
-    vector<int> head;
+	vector<int> dist, sz;
+    vector<int> par;
     int distinct_comp;
     int N;
     
@@ -48,16 +47,18 @@ public:
 		N = n;
 		distinct_comp = n;
 		dist.resize(n);
-		head.resize(n);
+		par.resize(n);
+		sz.resize(n);
 		
 		for(int i = 0; i < N; i++){
 			dist[i] = 0;
-			head[i] = i;
+			par[i] = i;
+			sz[i] = 1;
 		}
 	}
     
     int get_key(int k){
-        while(k != head[k]) k = head[k];
+        while(k != par[k]) k = par[k];
         return k;
     }
     
@@ -69,14 +70,16 @@ public:
         
         distinct_comp--;
 
-		// I want to connect k2 to k1, k1 should be better
-		if(dist[head_k2] > dist[head_k1]){
-			swap(head_k1, head_k2);
-		}
-        
-		if(dist[head_k1] == dist[head_k2]) dist[k1]++;
+		// I want to connect k1 to k2, so k2 should be bigger
+		if(dist[head_k1] > dist[head_k2]) swap(head_k1, head_k2); // union by depth
+		// if(sz[head_k1]   > sz[head_k2])   swap(head_k1, head_k2); // union by size
 		
-		head[head_k2] = head_k1;
+		// use one of the union heuristics, both are practically the same 
+        
+		if(dist[head_k1] == dist[head_k2]) dist[head_k2]++;
+		sz[head_k2] += sz[head_k1];
+
+		par[head_k1] = head_k2;
     }
     
     bool is_connected(int k1, int k2){
