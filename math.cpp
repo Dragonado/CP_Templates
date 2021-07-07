@@ -35,16 +35,6 @@ typedef long long int ll;
 #define endl '\n' // disable when dealing with interactive problems
 
 // End of highly risky #defines
-
-
-ll fact(ll n, ll p){
-	ll ans = 1;
-	for(ll i = 1; i <= n; i++){
-		ans *= i;
-		ans %= p;
-	}
-	return ans;
-}
 ll power(ll a, ll b, ll m){
     a %= m;
     ll res = 1;
@@ -59,13 +49,17 @@ ll power(ll a, ll b, ll m){
 ll inv(ll a, ll p){
 	return power(a,p-2,p);
 }
-ll nCr(ll n, ll r, ll p){
-	if(r > n) return 0;
-	ll t1 = fact(n,p);
-	ll t2 = inv(fact(r,p),p);
-	ll t3 = inv(fact(n-r,p),p);
 
-	return (((t1*t2)%p)*t3)%p;
+const int MAX = 2e5 + 1;
+vector<ll> fact, invfact;
+
+ll nCr(int n, int r){
+	if(n < r || n < 0 || r < 0) return 0;
+	ll ans = (fact[n]*invfact[r])%MOD;
+	ans *= invfact[n-r];
+	ans %= MOD;
+
+	return ans;
 }
 vector<vector<ll> > multiply(vector<vector<ll> > &a, vector<vector<ll> > &b, ll p){
 	int r1,c1,r2,c2;
@@ -111,6 +105,16 @@ signed main(){
  	ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
+	fact.resize(MAX);
+	invfact.resize(MAX);
+
+	fact[0] = invfact[0] = 1;
+
+	for(int i = 1; i < MAX; i++){
+		fact[i] = (fact[i-1]*i)%MOD;
+		invfact[i] = inv(fact[i], MOD);
+	}
+	
 	int T;
 	cin >> T;
 	//T = 1;
