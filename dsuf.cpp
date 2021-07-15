@@ -58,8 +58,8 @@ public:
 	}
     
     int get_key(int k){
-        while(k != par[k]) k = par[k];
-        return k;
+		if(k == par[k]) return k;
+        return par[k] = get_key(par[k]);
     }
     
     void merge(int k1, int k2){
