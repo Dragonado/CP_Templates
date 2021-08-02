@@ -60,28 +60,6 @@ const int dx[4] = {1,0,-1,0}, dy[4] = {0,1,0,-1}; // for every grid problem!!
 typedef vector<int> vi;
 typedef pair<int, int> pii;
 
-#include<bits/stdc++.h>
-    
-// CONVEINIENCE
-#define M 1000000007
-#define ll long long
-#define F first 
-#define S second
-#define pb push_back
-#define repb(i,a,b) for(int i=a;i>=b;i--)
-#define rep(i,a,b) for(int i=a;i<=b;i++)
-#define pii pair<int, int>
-#define pll pair<long long, long long>
-#define debug(a) cout<<#a<<'='<<a<<endl;
-#define debug_vec(a) cout<<#a<<':';rep(i,0,a.size()-1)cout<<a[i]<<" ";cout<<"\n";
-#define debug_arr(a,n) cout<<#a<<':';rep(i,0,n-1)cout<<a[i]<<" ";cout<<"\n";
-#define display_vec(a) rep(i,0,a.size()-1)cout<<a[i]<<" ";cout<<"\n";
-#define display_arr(a,n) rep(i,0,n-1)cout<<a[i]<<" ";cout<<"\n";
-#define fast ios_base::sync_with_stdio(false);cin.tie();cout.tie();
-using namespace std;
-    
-// ***GLOBAL VARIABLES****
-// ****FUNCTIONS*****
 template <typename T>
 class max_segtree{
     // taken from: https://www.hackerearth.com/submission/14209722/
