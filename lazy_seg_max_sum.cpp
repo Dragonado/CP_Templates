@@ -131,10 +131,10 @@ void solve(){
     vi vec(N);
     input(vec, N);
 
-	max_segtree<int> st;
+	  max_segtree<int> st;
     st.n = 2*N;
     st.init();
-    for(int i = 0; i < 2*N; i++) st.t[i+st.n] = vec[i];
+    for(int i = 0; i < st.n; i++) st.t[i+st.n] = vec[i];
     st.build();
 
     // Usage: https://codedrills.io/submissions/158083
