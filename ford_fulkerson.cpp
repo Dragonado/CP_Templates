@@ -62,7 +62,8 @@ typedef pair<int, int> pii;
 
 // https://atcoder.jp/contests/abc205/submissions/23534523
 // Learnt from: https://www.youtube.com/watch?v=K1i-wP82Zdo
-// Time Complexity is O(F * V^2), use when flow edges are of capacity is 1
+// Time Complexity is O(F * V^2), use when flow edges are of capacity is 1 but it also works when capacity is more
+// https://pastebin.com/SLf6Kjbf
 class FordFulkerson{
 public:
 	int n;
