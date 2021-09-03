@@ -455,7 +455,14 @@ namespace FFT {
 //https://github.com/Ashishgup1/Competitive-Coding/blob/master/FFT%20(Iterative).cpp
 
 void solve(){
-    
+    // documentation
+	vi left, right; // assume left and right are the two polynomials of size N to multiply
+	vi ans = FFT::mod_multiply<int>(left, right, MOD, true);
+	// ans is calculated mod in time O(NlogN)
+
+	// Reference: https://www.codechef.com/viewsolution/50533932
+	// I used divide and conquer above to multiply M polyonimals whose sum of sizes is N
+	// time complexity for that is O(N*logN*logM)
 }
 
 
