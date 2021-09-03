@@ -46,7 +46,7 @@ void logger(string vars, Args&&... values) {
 typedef long long int ll;
 typedef long double ld;
 
-const int MOD = 1e9+7; // 998244353;
+const int MOD = 998244353;
 const int MX = 2e5+5;
 const ll INF = 1e18; // not too close to LLONG_MAX
 const ld PI = acos((ld)-1);
@@ -458,6 +458,7 @@ void solve(){
     // documentation
 	vi left, right; // assume left and right are the two polynomials of size N to multiply
 	vi ans = FFT::mod_multiply<int>(left, right, MOD, true);
+	// usually the MOD is 998244353 because its NTT friendly
 	// ans is calculated mod in time O(NlogN)
 
 	// Reference: https://www.codechef.com/viewsolution/50533932
