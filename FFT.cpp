@@ -451,8 +451,10 @@ namespace FFT {
 	}
 }
 
-// FFT tempalte was shamelessely copied from Ashishgup1's repo. Ashishgup Orz
-//https://github.com/Ashishgup1/Competitive-Coding/blob/master/FFT%20(Iterative).cpp
+// Credits: https://codeforces.com/profile/neal
+// neal_wu's Iterative FFT: https://codeforces.com/contest/1334/submission/76217102
+// FFT template was shamelessely copied from Ashishgup1's repo. Ashishgup Orz
+// https://github.com/Ashishgup1/Competitive-Coding/blob/master/FFT%20(Iterative).cpp
 
 void solve(){
     // documentation
