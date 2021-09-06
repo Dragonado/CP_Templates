@@ -41,8 +41,8 @@ class segtree{
 public:
 
 	struct item{
-		T l, r, val;
-        int add;
+		T add, val;
+        int l,r;
         item(){
             val = add = l = 0;
 			r = -1;
@@ -68,16 +68,12 @@ public:
 
 		item res;
 
-		// cerr << "a: " << a.l << " " << a.r << " " << a.val << " " << a.add << endl;
-		// cerr << "b: " << b.l << " " << b.r << " " << b.val << " " << b.add << endl;
-
-		int add = (a.r-a.l+1)*a.add + (b.r-b.l+1)*b.add;
+		T add = (a.r-a.l+1)*a.add + (b.r-b.l+1)*b.add;
 
 		res.val = a.val + b.val + add;
 		res.l = a.l;
 		res.r = b.r;
 
-		// cerr << res.l << " " << res.r << " " << res.val << endl;
 		return res;
 	}
 	
@@ -161,8 +157,7 @@ void solve(){
 	// code starts from here
 
 	// https://cses.fi/problemset/result/2197984/
-	// NOTE THAT RANGE ADD, POINT SUM is tested
-	// RANGE SUM is not tested, maybe wrong.
+	// https://codeforces.com/contest/1567/submission/127994390
     int N, Q;
     cin >> N >> Q;
     
