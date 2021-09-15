@@ -79,7 +79,7 @@ class basisxor{
 
 void solve(){
 	// code starts from here
-	
+	// usage with segment tree-ish problem: https://www.hackerearth.com/submission/63348894/
 }
 
 
