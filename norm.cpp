@@ -25,6 +25,8 @@ using namespace std;
 #define is_on(x, i)      ((x) & pow2(i)) // state of the ith bit in x
 #define set_on(x, i)     ((x) | pow2(i)) // returns integer x with ith bit on
 #define set_off(x, i)    ((x) & ~pow2(i)) // returns integer x with ith bit off
+#define fi               first
+#define se               second
 
 #ifdef LOCAL_DEBUG
 	#define debug(...) logger(#__VA_ARGS__, __VA_ARGS__)
@@ -59,7 +61,7 @@ const int dx[4] = {1,0,-1,0}, dy[4] = {0,1,0,-1}; // for every grid problem!!
 
 typedef vector<int> vi;
 typedef pair<int, int> pii;
-
+typedef array<int,2> edge; // for graphs, make it array<int,3> for weighted edges
 
 void solve(){
 	// code starts from here
@@ -76,12 +78,11 @@ signed main(){
  	ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 	//startTime = clock();
-	// mt19937_64 rnd(time(NULL));
 
 	int T = 1;
 	cin >> T;
 
-	while(T--){
+	for(int _t = 1; _t <= T; _t++){
 		solve();
 	}
 	
