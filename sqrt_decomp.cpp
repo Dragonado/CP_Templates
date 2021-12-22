@@ -207,6 +207,8 @@ void update(int L, int R){
 
 void solve(){
 	// code starts from here
+	// https://cses.fi/problemset/task/1736/
+	// https://cses.fi/problemset/result/3272450/
 	int n, Q;
 	cin >> n >> Q;
 	
