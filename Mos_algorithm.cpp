@@ -109,6 +109,9 @@ vector<ll> MO(vector<pii> &q){
 }
 
 signed main() {
+	ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+	
 	int n, q; cin >> n >> q;
 	for (int i = 1; i <= n; i++) cin >> v[i];
 	vector<pii> qu(q);

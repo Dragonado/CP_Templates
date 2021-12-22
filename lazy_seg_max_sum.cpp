@@ -132,7 +132,7 @@ void solve(){
     input(vec, N);
 
 	  max_segtree<int> st;
-    st.n = 2*N;
+    st.n = N;
     st.init();
     for(int i = 0; i < st.n; i++) st.t[i+st.n] = vec[i];
     st.build();
