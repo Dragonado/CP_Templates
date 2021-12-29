@@ -144,9 +144,9 @@ inline void W2(int n){static char buf[12],p;if(n<0)OB[OP++]='-',n*=-1;p=0;while(
 void solve(){
     /*
 	1. You cant use #define int ll, instead convert all occurences of 'int' to 'll' using Ctrl + H
-    2. W1 prints a word with a space ender.
-    3. W3 prints a word with a line ender.
-    4. add write(1, OB, OP) after output
+    2. W1 prints an integer with a space ender.
+    3. W3 prints an integer with a line ender.
+    4. add write(1, OB, OP) before end of program
     reference: https://codeforces.com/contest/1591/submission/138905812 
     */
 }
@@ -159,5 +159,6 @@ signed main(){
 		solve();
 	}
 	
+    write(1, OB, OP);
 	return 0;
 }
