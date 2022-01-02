@@ -150,7 +150,7 @@ public:
         int ans = 0; 
 
         // merging step
-        // capture all answers that involve the centroid in O(N) or O(NlogN)
+        // capture all answers that involve the centroid in O(N) or O(NlogN) where N = subtree_cnt[centroid]
         // add your code here
         for(int ne: adj[centroid]){
             if(rem[ne]) continue;
