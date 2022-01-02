@@ -60,12 +60,14 @@ int n, l; // = 1 + log2(MAXN);
 vector<vector<int>> adj;
 
 int timer;
-vector<int> tin, tout;
+vector<int> height, tin, tout;
 vector<vector<int>> up;
 
 void dfs(int v, int p){
     tin[v] = ++timer;
     up[v][0] = p;
+    height[v] = 1 + height[p];
+
     for (int i = 1; i <= l; ++i)
         up[v][i] = up[up[v][i-1]][i-1];
 
@@ -77,8 +79,8 @@ void dfs(int v, int p){
     tout[v] = ++timer;
 }
 
-bool is_ancestor(int u, int v){
-    return tin[u] <= tin[v] && tout[u] >= tout[v];
+bool is_ancestor(int anc, int v){
+    return tin[anc] <= tin[v] && tout[anc] >= tout[v];
 }
 
 int lca(int u, int v){
@@ -93,6 +95,26 @@ int lca(int u, int v){
     return up[u][0];
 }
 
+int lca_dist(int anc, int u){
+    assert(anc == lca(anc, u));
+    if(anc == u) return 0;
+
+    int ans = 1;
+    for (int i = l; i >= 0; --i) {
+        if (!is_ancestor(up[u][i], anc)){
+            u = up[u][i];
+            ans += pow2(i);
+        }
+    }
+
+    return ans;
+}
+
+int dist(int u, int v){
+    int anc = lca(u, v);
+    return lca_dist(anc, u) + lca_dist(anc, v);
+}
+
 void preprocess(int root) {
     tin.resize(n);
     tout.resize(n);
@@ -104,19 +126,27 @@ void preprocess(int root) {
 
 void solve(){
 	// code starts from here
-	cin >> n;
+	int q;
+    cin >> n >> q;
 
 	adj.clear();
 	adj.resize(n);
-	for(int i = 0; i < n-1; i++){
-		int u, v;
+    height.assign(n, -1);
+	for(int u, v, i = 1; i < n; i++){
 		cin >> u >> v;
-		u--;v--; // assuming 1 based indexing
-		adj[u].pb(v);
-		adj[v].pb(u);
+        u--;v--;
+        adj[u].pb(v);
+        adj[v].pb(u);
 	}
 
 	preprocess(0); // usually 0 is root
+
+    for(int t, k, i = 0; i < q; i++){
+        cin >> t >> k;
+        t--;k--;
+
+        cout << dist(t, k) << endl;
+    }
 }
 
 signed main(){
@@ -124,7 +154,7 @@ signed main(){
     cin.tie(NULL);
 
 	int T = 1;
-	cin >> T;
+	// cin >> T;
 	while(T--){
 		solve();
 	}
