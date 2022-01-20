@@ -94,6 +94,8 @@ bool cmp(const pair<int,int> &a, const pair<int,int>  &b){
 }
  
 signed main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
     int n, m, u, v;
 
     cin>>n>>m;
@@ -144,7 +146,6 @@ signed main(){
     ///////////////////////////////////////////////////////////
 
     int n_CT = cntr; //number of vertices in CT
-    // Note: n_CT, n_CT-1, n_CT-2 ... 3,2,1 are in top sort order
-
+    // Note: n_CT, n_CT-1, n_CT-2 ... 3,2,1 are in top sort order, edges go from left to right
     return 0;
 }
