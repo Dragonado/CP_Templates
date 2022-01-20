@@ -48,6 +48,9 @@ typedef long long int ll;
  */
 // #pragma once
 
+#define double long double
+const double pi = acos(-1);
+
 template <class T> int sgn(T x) { return (x > 0) - (x < 0); }
 template<class T>
 struct Point {
@@ -75,13 +78,19 @@ struct Point {
 		return P(x*cos(a)-y*sin(a),x*sin(a)+y*cos(a)); }
 	friend ostream& operator<<(ostream& os, P p) {
 		return os << "(" << p.x << "," << p.y << ")"; }
-		
-	friend istream& operator>>(istream &istream, P &p){
-		cin >> p.x >> p.y; return istream;}
+
+    friend istream& operator>>(istream &istream, P &p){cin >> p.x >> p.y; return istream;}
 };
 
-#define double long double
-const double pi = acos(-1);
+// position of p3 relative to line going through p1, p2
+// if sgn > 0: p3 is LEFT
+// else if sgn == 0: then p3 touching the line
+// else: p3 is RIGHT
+int toLeftSign(const Point<int> &p1, const Point<int> &p2, const Point<int> &p3){
+    int sgn = (p3.y-p1.y)*(p2.x-p1.x) - (p2.y-p1.y)*(p3.x-p1.x);
+    return sgn;
+}
+
 
 void solve(){
 	// code starts from here
