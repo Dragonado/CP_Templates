@@ -75,6 +75,9 @@ struct Point {
 		return P(x*cos(a)-y*sin(a),x*sin(a)+y*cos(a)); }
 	friend ostream& operator<<(ostream& os, P p) {
 		return os << "(" << p.x << "," << p.y << ")"; }
+		
+	friend istream& operator>>(istream &istream, P &p){
+		cin >> p.x >> p.y; return istream;}
 };
 
 #define double long double
