@@ -82,16 +82,39 @@ struct Point {
     friend istream& operator>>(istream &istream, P &p){cin >> p.x >> p.y; return istream;}
 };
 
+typedef Point<int> P;
+
 // position of p3 relative to line going through p1->p2
 // if sgn == 1: p3 is LEFT
 // else if sgn == 0: then p3 touching the line
 // else if sgn == -1: p3 is RIGHT
-int toLeftSign(const Point<int> &p1, const Point<int> &p2, const Point<int> &p3){
+int toLeftSign(const P &p1, const P &p2, const P &p3){
     int sgn = (p3.y-p1.y)*(p2.x-p1.x) - (p2.y-p1.y)*(p3.x-p1.x);
     if(sgn < 0) return -1;
     else if(sgn == 0) return 0;
     else return 1;
 }
+
+// gives the 2*signed area of triangle formed by p1, p2, p3
+int getDoubleTriangleArea(const P &p1, const P &p2, const P &p3){
+    int area = p1.x*(p2.y-p3.y) - p1.y*(p2.x-p3.x) + 1*(p2.x*p3.y - p2.y*p3.x);
+    return area; 
+}
+
+// returns the 2*unsigned area of the polygon, vec should have adjacent vertices
+int getDoublePolygonArea(const vector<P> &vec){
+	assert(vec.size() > 2);
+	if(vec.size() == 3) return getDoubleTriangleArea(vec[0], vec[1], vec[2]);
+
+	int ans = 0, N = vec.size();
+	P origin(0, 0);
+	
+	for(int i = 0; i < N; i++){
+		ans += getDoubleTriangleArea(vec[i], vec[(i+1)%N], origin);
+	}
+	return abs(ans);
+}
+
 
 void solve(){
 	// code starts from here
