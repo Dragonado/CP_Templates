@@ -82,15 +82,16 @@ struct Point {
     friend istream& operator>>(istream &istream, P &p){cin >> p.x >> p.y; return istream;}
 };
 
-// position of p3 relative to line going through p1, p2
-// if sgn > 0: p3 is LEFT
+// position of p3 relative to line going through p1->p2
+// if sgn == 1: p3 is LEFT
 // else if sgn == 0: then p3 touching the line
-// else: p3 is RIGHT
+// else if sgn == -1: p3 is RIGHT
 int toLeftSign(const Point<int> &p1, const Point<int> &p2, const Point<int> &p3){
     int sgn = (p3.y-p1.y)*(p2.x-p1.x) - (p2.y-p1.y)*(p3.x-p1.x);
-    return sgn;
+    if(sgn < 0) return -1;
+    else if(sgn == 0) return 0;
+    else return 1;
 }
-
 
 void solve(){
 	// code starts from here
