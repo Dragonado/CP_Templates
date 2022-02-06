@@ -2,11 +2,14 @@
 #pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt")
 
 #include <bits/stdc++.h>
+using namespace std;
+
+// #include <atcoder/all>
+// using namespace atcoder;
+
 //#include <ext/pb_ds/assoc_container.hpp> //required
 //#include <ext/pb_ds/tree_policy.hpp> //required
-
 //using namespace __gnu_pbds; //required 
-using namespace std;
 //template <typename T> using ordered_set =  tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>; 
 
 // ordered_set <int> s;
@@ -132,6 +135,7 @@ void debug_out(Head H, Tail... T) {
 typedef vector<int> vi;
 typedef pair<int, int> pii;
 typedef array<int,2> edge; // for graphs, make it array<int,3> for weighted edges
+
 
 void solve(){
 	// code starts from here
