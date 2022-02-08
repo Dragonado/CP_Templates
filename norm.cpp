@@ -125,8 +125,6 @@ void debug_out(Head H, Tail... T) {
 	#define debug(...) ;
 #endif
 
-// #include <atcoder/all>
-// using namespace atcoder;
 #define int ll // disable when you want to use atcoder library
 #define endl '\n' // disable when dealing with interactive problems
 
@@ -134,7 +132,8 @@ typedef vector<int> vi;
 typedef pair<int, int> pii;
 typedef array<int,2> edge; // for graphs, make it array<int,3> for weighted edges
 
-
+// #include <atcoder/all>
+// using namespace atcoder;
 
 void solve(){
 	// code starts from here
