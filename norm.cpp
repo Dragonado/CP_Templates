@@ -4,9 +4,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// #include <atcoder/all>
-// using namespace atcoder;
-
 //#include <ext/pb_ds/assoc_container.hpp> //required
 //#include <ext/pb_ds/tree_policy.hpp> //required
 //using namespace __gnu_pbds; //required 
@@ -128,13 +125,15 @@ void debug_out(Head H, Tail... T) {
 	#define debug(...) ;
 #endif
 
-// highly risky #defines
-#define int ll // disable when you want to make code a bit faster
+// #include <atcoder/all>
+// using namespace atcoder;
+#define int ll // disable when you want to use atcoder library
 #define endl '\n' // disable when dealing with interactive problems
 
 typedef vector<int> vi;
 typedef pair<int, int> pii;
 typedef array<int,2> edge; // for graphs, make it array<int,3> for weighted edges
+
 
 
 void solve(){
