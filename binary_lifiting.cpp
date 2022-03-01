@@ -121,6 +121,7 @@ void preprocess(int root) {
     timer = 0;
     l = ceil(log2(n));
     up.assign(n, vector<int>(l + 1));
+    height.assign(n, -1);
     dfs(root, root);
 }
 
