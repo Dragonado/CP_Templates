@@ -1,26 +1,37 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.StringTokenizer;
+import java.io.PrintWriter;
+
  
 public class norm{
 
     static FastScanner fs = new FastScanner();
+    static PrintWriter out = new PrintWriter(System.out);
     public static void main(String args[]){
         int T = fs.nextInt();
         for(int t = 0; t < T; t++){
             solve();
         }
+
+        out.close();
     }
 
     public static void solve(){
         // code starts from here
         
     }
+
+    static void sort(int[] a) {
+		ArrayList<Integer> l=new ArrayList<>();
+		for (int i:a) l.add(i);
+		Collections.sort(l);
+		for (int i=0; i<a.length; i++) a[i]=l.get(i);
+	}
+
 	static class FastScanner {
 		BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st=new StringTokenizer("");
