@@ -163,12 +163,12 @@ struct node {
     left_child = right_child = NULL;
   }
 
-  // ~node() {
-  //   delete left_child;
-  //   delete right_child;
-  //   left_child = NULL;
-  //   right_child = NULL;
-  // }
+  ~node() {
+    delete left_child;
+    delete right_child;
+    left_child = NULL;
+    right_child = NULL;
+  }
 };
 
 node *add(node *cur, int L, int R, line l) {
