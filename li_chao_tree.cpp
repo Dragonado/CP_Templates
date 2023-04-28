@@ -206,6 +206,8 @@ int query(node *cur, int L, int R, int p) {
 }
 
 void solve() {
+  // https://judge.yosupo.jp/submission/136537
+  // https://www.youtube.com/watch?v=-StmrE2gY44
   int N, Q;
   cin >> N >> Q;
 
