@@ -1,0 +1,1 @@
+{"name":"Local: a","url":"/home/dragonado/Desktop/Coding/CP_Templates/a.py","tests":[{"id":1667323126994,"input":"10 0\n1 1 3 3 3 3 3 7 7 7","output":"5"},{"id":1667323140004,"input":"10 3\n3 1 7 3 3 3 7 3 1 7","output":"3"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/dragonado/Desktop/Coding/CP_Templates/a.py","group":"local","local":true}

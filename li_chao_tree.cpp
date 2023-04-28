@@ -33,7 +33,7 @@ typedef long double ld;
 
 const int MOD = 1e9 + 7; // 998244353;
 const int MX = 2e5 + 5;
-const ll INF = 1e18; // not too close to LLONG_MAX
+const ll INF = 3e18; // not too close to LLONG_MAX
 const ld PI = acos((ld)-1);
 const ld EPS = 1e-8;
 const int dx[4] = {1, 0, -1, 0},
@@ -141,9 +141,92 @@ typedef array<int, 2>
 
 // #include <atcoder/all>
 // using namespace atcoder;
+constexpr int MAXA = 1e9;
+
+struct line {
+  int m, b;
+
+  int eval(int x) { return m * x + b; }
+};
+
+struct node {
+  line l;
+  node *left_child, *right_child;
+
+  node() {
+    l = line(0, INF);
+    left_child = right_child = NULL;
+  }
+
+  node(line li) {
+    l = li;
+    left_child = right_child = NULL;
+  }
+
+  // ~node() {
+  //   delete left_child;
+  //   delete right_child;
+  //   left_child = NULL;
+  //   right_child = NULL;
+  // }
+};
+
+node *add(node *cur, int L, int R, line l) {
+  if (cur == NULL) {
+    node *ans = new node(line(l));
+    return ans;
+  }
+  int mid = (L + R) / 2;
+  if (cur->l.eval(mid) > l.eval(mid))
+    swap(cur->l, l);
+
+  if (cur->l.eval(L) <= l.eval(L) && cur->l.eval(R) <= l.eval(R))
+    return cur;
+
+  if (cur->l.eval(L) > l.eval(L)) {
+    cur->left_child = add(cur->left_child, L, mid, l);
+  } else {
+    cur->right_child = add(cur->right_child, mid + 1, R, l);
+  }
+
+  return cur;
+}
+
+int query(node *cur, int L, int R, int p) {
+  if (cur == NULL)
+    return INF;
+  int mid = (L + R) / 2;
+  int ans = cur->l.eval(p);
+
+  if (p <= mid)
+    ans = min(ans, query(cur->left_child, L, mid, p));
+  else
+    ans = min(ans, query(cur->right_child, mid + 1, R, p));
+  return ans;
+}
 
 void solve() {
-  // code starts from here
+  int N, Q;
+  cin >> N >> Q;
+
+  node *head = new node;
+
+  for (int m, b, i = 0; i < N; i++) {
+    cin >> m >> b;
+    add(head, -MAXA, MAXA, line(m, b));
+  }
+
+  int p, m, b;
+  for (int t, i = 0; i < Q; i++) {
+    cin >> t;
+    if (t == 1) {
+      cin >> p;
+      cout << query(head, -MAXA, MAXA, p) << endl;
+    } else {
+      cin >> m >> b;
+      add(head, -MAXA, MAXA, line(m, b));
+    }
+  }
 }
 
 signed main() {
@@ -152,7 +235,7 @@ signed main() {
   // startTime = clock();
 
   int T = 1;
-  cin >> T;
+  // cin >> T;
 
   for (int _t = 1; _t <= T; _t++) {
     solve();
