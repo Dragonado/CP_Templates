@@ -1,7 +1,23 @@
 #pragma GCC optimize("O3,unroll-loops")
 #pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt")
 
-#include <bits/stdc++.h>
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <array>
+#include <set>
+#include <map>
+#include <queue>
+#include <stack>
+#include <list>
+#include <chrono>
+#include <random>
+#include <cstdlib>
+#include <cmath>
+#include <ctime>
+#include <cstring>
+#include <iomanip>
+#include <bitset>
 using namespace std;
 
 //#include <ext/pb_ds/assoc_container.hpp> //required
